@@ -2,6 +2,7 @@ package com.company;
 
 import java.io.*;
 import java.util.HashMap;
+import java.io.FileNotFoundException;
 
 public class stockage {
     stockage(){
@@ -14,14 +15,17 @@ public class stockage {
 
             personneHashMap.put(p.identificateur,p);
 
-            try(FileOutputStream outputStream = new FileOutputStream(fichier);
-                    ObjectOutputStream objectStream = new ObjectOutputStream(outputStream)) {
+            try{FileOutputStream outputStream = new FileOutputStream(fichier);
+                    ObjectOutputStream objectStream = new ObjectOutputStream(outputStream); {
                 objectStream.writeObject(personneHashMap);
-            }catch (Exception e){
-                System.out.println(e);
-
             }
-    }
+            }catch (FileNotFoundException exc){
+                System.out.println(exc);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     public Integer TailleTableau(){
@@ -31,37 +35,47 @@ public class stockage {
     }
 
 
-    HashMap <Integer,Personne> deserialiser(){
+    HashMap <Integer,Personne> deserialiser() {
 
-        try(
-                InputStream outputStream = new FileInputStream(fichier);
-                ObjectInputStream objectStream = new ObjectInputStream(outputStream);) {
-            HashMap <Integer,Personne> personneHashMap = (HashMap<Integer, Personne>) objectStream.readObject();
-            System.out.println(personneHashMap.toString());
+        try {
+            InputStream outputStream = new FileInputStream(fichier);
+            ObjectInputStream objectStream = new ObjectInputStream(outputStream);
+            {
+                HashMap<Integer, Personne> personneHashMap = (HashMap<Integer, Personne>) objectStream.readObject();
+                System.out.println(personneHashMap.toString());
 
-            return personneHashMap;
+                return personneHashMap;
 
-        }catch (Exception e){
-            System.out.println(e);
-            return null;
+            }
+        } catch (FileNotFoundException exc) {
+            System.out.println(exc);
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
+        return null;
     }
+
 
     int serialiser(HashMap <Integer,Personne> personneHashMap){
 
         String fichier = "Heritage.dat";
 
-        try(FileOutputStream outputStream = new FileOutputStream(fichier);
-            ObjectOutputStream objectStream = new ObjectOutputStream(outputStream)) {
+        try{FileOutputStream outputStream = new FileOutputStream(fichier);
+            ObjectOutputStream objectStream = new ObjectOutputStream(outputStream);{
             objectStream.writeObject(personneHashMap);
 
             return 1;
-        }catch (Exception e){
-            System.out.println(e);
-            return 0;
+        }}catch (FileNotFoundException exc){
+            System.out.println(exc);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     void intialiser(){
@@ -70,8 +84,6 @@ public class stockage {
         serialiser(personneHashMap);
 
     }
-
-
 
 
 

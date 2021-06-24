@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.*;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 import static com.company.Personne.CYAN;
 
@@ -11,9 +12,9 @@ public class Main {
 
     static void listePersonnes(){
         stockage s = new stockage();
-        System.out.println("          Voici la liste des personnes déjà enrégistrés ");
+        System.out.println("  Voici la liste des personnes déjà enrégistrés ");
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
-
+        clearConsole();
         for (int h : personneHashMap.keySet()){
             personneHashMap.get(h).afficheLien2();
         }
@@ -35,6 +36,7 @@ public class Main {
      stockage s = new stockage();
         System.out.println("Créons des liens ");
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
 
        for (int h : personneHashMap.keySet()){
             personneHashMap.get(h).afficheLien();
@@ -73,7 +75,7 @@ public class Main {
                 }
                     else
                     {
-                        System.out.println(personne1.nom+ "  Est déja un enfant de ou est plus agé que son père "+personne2.nom);}
+                        System.out.println(personne1.prenoms+ "  Est déja un enfant de ou est plus agé que son père "+personne2.prenoms);}
                     personneHashMap.remove(personne1.identificateur);
                     personneHashMap.remove(personne2.identificateur);
 
@@ -141,6 +143,7 @@ public class Main {
      static void afficherLesenfantsPersonnes(){
          stockage s = new stockage();
          HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+         clearConsole();
          int i = retouverIdPersonne(personneHashMap);
          personneHashMap.get(i).afficheEnfantsPersonne(personneHashMap);
 
@@ -149,6 +152,7 @@ public class Main {
     static void afficherLesFrereouSoeurPersonnes(){
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         personneHashMap.get(i).afficheFrereouSoeur(personneHashMap);
 
@@ -156,6 +160,7 @@ public class Main {
     static void afficherAscendantsPersonnes(){
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         personneHashMap.get(i).afficherAscendant(personneHashMap,i);
 
@@ -163,6 +168,7 @@ public class Main {
     static void afficherCousinsPersonnes(){
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         personneHashMap.get(i).afficherCousin(personneHashMap,i);
 
@@ -171,21 +177,25 @@ public class Main {
         clearConsole();
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         personneHashMap.get(i).AffichageArbre(personneHashMap,i);
 
     }
     static void afficherNombreAscePersonnes(){
+        clearConsole();
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         System.out.println(personneHashMap.get(i).NombreAscendant(personneHashMap,i));
 
     }
     static  void AffichageArbrePersonnesDepuis1ereG(){
-
+         clearConsole();
         stockage s = new stockage();
         HashMap <Integer,Personne> personneHashMap = s.deserialiser();
+        clearConsole();
         int i = retouverIdPersonne(personneHashMap);
         personneHashMap.get(i).AffichageArbre(personneHashMap,personneHashMap.get(i).afficherAscendantDepuispremiereG(personneHashMap,i));
     }
@@ -232,11 +242,11 @@ public class Main {
     static void choix2(){
         clearConsole();
         afficherLesenfantsPersonnes();
-        System.out.println("Désirez vous créer un autre lien ?" +
+        System.out.println("Désirez vous d'autre enfant d'une autre personne ?" +
                             "\n          1 : Oui \n          2 : Non");
         Scanner reponse = new Scanner(System.in);
         int choix = reponse.nextInt();
-        if (choix == 3){
+        if (choix == 1){
             choix2();
         }
     }
@@ -268,7 +278,7 @@ public class Main {
     static void choix5(){
         clearConsole();
         afficherCousinsPersonnes();
-        System.out.println("Désirez vous afficher les cousins d'une autre personne?" +
+        System.out.println("Désirez vous afficher les cousins d'une autre personne ?" +
                             "\n          1 : Oui \n          2 : Non");
         Scanner reponse = new Scanner(System.in);
         int choix = reponse.nextInt();
@@ -311,6 +321,8 @@ public class Main {
             Personne p = creerPersonne();
             p.setID(s.TailleTableau());
             s.stocker(p);
+            clearConsole();
+            System.out.println("Personne Créer avec succès");
         System.out.println("Désirez vous ajouter une autre personne ?"  +
                         "\n          1 : Oui \n          2 : Non");
          choix = reponse.nextLine();
@@ -329,6 +341,7 @@ public class Main {
         int id = reponse1.nextInt();
         stockage s = new stockage();
         Personne p = s.deserialiser().get(id);
+        clearConsole();
         System.out.println("1-nom 2-prenoms 3-sexe ");
         Scanner reponse2 = new Scanner(System.in);
         String choi = reponse2.nextLine();
@@ -343,7 +356,7 @@ public class Main {
                     String e1 = reponse2.nextLine();
                     p.setNom(e1);
                     s.stocker(p);
-
+                 System.out.println("modification effective avec succès ");
                 }
             }
             break;
@@ -388,7 +401,7 @@ public class Main {
     static void menu(){
 
         System.out.println("          Veuillez effectuer un choix :\n" +
-                "\n        0: Afficher un arbre \n          1: Creer un lien"+
+                "\n          0: Afficher un arbre \n          1: Creer un lien"+
                 "\n          2: Afficher les enfants \n          3: Afficher les Freres et soeurs" +
                 "\n          4: Affichier les ascendants d'une personne \n          5: Afficher les cousins" +
                 "\n          6: Visualiser le nombre d'ascendant \n          7: Afficher la premiere generation " +
@@ -430,10 +443,12 @@ public class Main {
                 break;
 
         }
-        System.out.println("          Désirez-vous quitter l'application ?" +
+        clearConsole();
+        System.out.println("      Désirez-vous quitter l'application ?" +
                             "\n          1 : Oui \n          2 : Non");
         choix = reponse.nextInt();
         if (choix == 2){
+            clearConsole();
             menu();
         }
     }

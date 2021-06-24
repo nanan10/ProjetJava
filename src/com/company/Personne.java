@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.io.FileNotFoundException;
 
 public class Personne implements Serializable {
     public static final String BLACK = "\033[0;30m";   // BLACK
@@ -66,8 +67,6 @@ public class Personne implements Serializable {
         System.out.println(" nom : " +nom+"\n");
         System.out.println(" prenoms : " + prenoms+"\n");
         System.out.println(" date Naissance : " + date_de_naissance+"\n");
-        System.out.println(" parent : " + parent+"\n");
-        System.out.println(" enfants : " + enfants+"\n");
         System.out.println("-----------------------------------------");
 
 
@@ -76,7 +75,7 @@ public class Personne implements Serializable {
     void afficheLien2(){
         System.out.println("------------------------------------------------------------------------------------------------------------");
         System.out.println("| id : " + identificateur+ " | nom : " +nom+" | prenoms : " + prenoms+
-                            " | date Naissance : " + date_de_naissance+" | parent : " + parent+
+                            " | date Naissance : " + date_de_naissance+
                             " | enfants : " + enfants);
     }
 
